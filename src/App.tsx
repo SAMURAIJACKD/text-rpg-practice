@@ -19,7 +19,7 @@ import './App.css'
       }
       function roadsideRest() {
         if (playerHealth >= playerMaxHealth) {
-          setStoryText('You consider resting, but realize that you aren\'t actually tired. You decide to move on instead. \(Your health is already full, don\t be silly\).')
+          setStoryText('You consider resting, but realize that you aren\'t actually tired. You decide to move on instead. \(Your health is already full, don\'t be silly\).')
           return
         }
         else {
@@ -31,7 +31,7 @@ import './App.css'
       }
       function humanityCheck() {
         setStoryText('You cut yourself and bleed, you are relieved to find that you are still human. A hurting human now, but still human.')
-        setplayerHealth(playerHealth - 1)
+        setplayerHealth(Math.max(0, playerHealth - 1))
       }
       return (
         <main>
