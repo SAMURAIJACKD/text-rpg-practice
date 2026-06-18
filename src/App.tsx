@@ -7,7 +7,7 @@ import './App.css'
       const playerName = 'Ricky'
       const playerLevel = 1
       const playerMaxHealth = 20
-      const [playerHealth, setplayerHealth] = useState(playerMaxHealth)
+      const [playerHealth, setPlayerHealth] = useState(playerMaxHealth)
       const playerBackpack = ['flashlight', 'rope', 'prybar']
       const [location, setLocation] = useState('Home')
       const [storyText, setStoryText] = useState(`You open your eyes on a couch, looking around you see your home. You don't remember how you got back home, but as you look at your table you see a note. It reads: "${playerName}, you need to complete the demo, then you can join us in the real game. We'll be waiting for you. - The Devs"`)
@@ -34,7 +34,7 @@ import './App.css'
           else {
             const heal = Math.round(Math.random() * (playerMaxHealth - playerHealth))
             const newHealth = Math.min(playerMaxHealth, playerHealth + heal)
-            setplayerHealth(newHealth)
+            setPlayerHealth(newHealth)
             setStoryText(`You set up a bedroll by the side of the road and rest for a while. You feel refreshed and have ${newHealth} health`)
           }
         }
@@ -46,11 +46,11 @@ import './App.css'
         const nextHealth= Math.max(0, playerHealth -1)
         if (playerHealth >= 2) {
           setStoryText('You cut yourself and bleed, you are relieved to find that you are still human. A hurting human now, but still human.')
-          setplayerHealth(nextHealth)
+          setPlayerHealth(nextHealth)
         }
         else if (playerHealth === 1) {
           setStoryText('You were human, but now you are dead. Therefore you are now a corpse. Game over.')
-          setplayerHealth(0)
+          setPlayerHealth(0)
           return
         }
         else {
