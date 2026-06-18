@@ -41,17 +41,17 @@ import './App.css'
           setStoryText('You died, maybe wait for a mad scientist to bring you back to life before trying to continue playing?')
         }
       }
-      function humanityCheck() {if (playerHealth >= 1) {
-        setStoryText('You cut yourself and bleed, you are relieved to find that you are still human. A hurting human now, but still human.')
+      function humanityCheck() {
         const nextHealth= Math.max(0, playerHealth -1)
-        if (nextHealth <=0) {
+        if (playerHealth >= 2) {
+          setStoryText('You cut yourself and bleed, you are relieved to find that you are still human. A hurting human now, but still human.')
+          setplayerHealth(nextHealth)
+        }
+        else if (playerHealth === 1) {
           setStoryText('You were human, but now you are dead. Therefore you are now a corpse. Game over.')
           setplayerHealth(0)
           return
         }
-        else {
-        setplayerHealth(Math.max(0, playerHealth - 1))
-      }}
         else {
           setStoryText('You died, maybe wait for a mad scientist to bring you back to life before trying to continue playing?')
         }
