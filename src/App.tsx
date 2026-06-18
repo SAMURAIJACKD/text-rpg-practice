@@ -3,6 +3,7 @@ import './App.css'
 
 
     function App() {
+      const deathText = 'You died, maybe wait for a mad scientist to bring you back to life before trying to continue playing?'
       const playerName = 'Ricky'
       const playerLevel = 1
       const playerMaxHealth = 20
@@ -15,13 +16,13 @@ import './App.css'
         setStoryText('You head into the city to see what you can find. As you walk to the Boulevard you see people bustling about. There are shops, some groups calling out to passersby, and vehicles carrying their passengers. What do you want to do?')
       }
       else {
-        setStoryText('You died, zombies don\'t exist in this game, maybe wait for a mad scientist to bring you back to life before trying to continue playing?')
+        setStoryText(deathText)
       }
     }
       function checkBackpack() {if (playerHealth >= 1) {
         setStoryText(`You check your backpack, inside you have: ${playerBackpack.join(', ')}`)
       } else {
-        setStoryText('You died, maybe wait for a mad scientist to bring you back to life before trying to continue playing?')
+        setStoryText(deathText)
       }
         }
       function roadsideRest() {
@@ -38,7 +39,7 @@ import './App.css'
           }
         }
         else {
-          setStoryText('You died, maybe wait for a mad scientist to bring you back to life before trying to continue playing?')
+          setStoryText(deathText)
         }
       }
       function humanityCheck() {
@@ -53,7 +54,7 @@ import './App.css'
           return
         }
         else {
-          setStoryText('You died, maybe wait for a mad scientist to bring you back to life before trying to continue playing?')
+          setStoryText(deathText)
         }
     }
 
