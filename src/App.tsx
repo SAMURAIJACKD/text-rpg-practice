@@ -44,12 +44,11 @@ import './App.css'
       function humanityCheck() {
         if (playerHealth >= 1) {
           const nextHealth= Math.max(0, playerHealth -1)
+          setPlayerHealth(nextHealth)
           if (nextHealth === 0 ) {
             setStoryText('You were human, but now you are dead. Therefore you are now a corpse. Game over.')
-            setPlayerHealth(0)
           } else {
             setStoryText('You cut yourself and bleed, you are relieved to find that you are still human. A hurting human now, but still human.')
-            setPlayerHealth(nextHealth)
             return
           } 
         }
