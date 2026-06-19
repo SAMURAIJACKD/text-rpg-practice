@@ -7,7 +7,7 @@ import './App.css'
       const playerName = 'Ricky'
       const playerLevel = 1
       const playerMaxHealth = 20
-      const [playerGold, setPlayerGold] = useState(0)
+      const [playerGold] = useState(0)
       const [playerHealth, setPlayerHealth] = useState(playerMaxHealth)
       const playerBackpack = ['flashlight', 'rope', 'prybar']
       const [location, setLocation] = useState('Home')
