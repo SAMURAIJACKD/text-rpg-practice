@@ -7,6 +7,7 @@ import './App.css'
       const playerName = 'Ricky'
       const playerLevel = 1
       const playerMaxHealth = 20
+      const [playerGold, setPlayerGold] = useState(0)
       const [playerHealth, setPlayerHealth] = useState(playerMaxHealth)
       const playerBackpack = ['flashlight', 'rope', 'prybar']
       const [location, setLocation] = useState('Home')
@@ -32,8 +33,8 @@ import './App.css'
             setStoryText('You consider resting, but realize that you aren\'t actually tired. You decide to move on instead. \(Your health is already full, don\'t be silly\).')
             return
           } else {
-            const heal= Math.round(Math.random() * (playerMaxHealth - playerHealth))
-            const newHealth= Math.min(playerMaxHealth, playerHealth + heal)
+            const heal = Math.round(Math.random() * (playerMaxHealth - playerHealth))
+            const newHealth = Math.min(playerMaxHealth, playerHealth + heal)
             setPlayerHealth(newHealth)
             setStoryText(`You set up a bedroll by the side of the road and rest for a while. You feel refreshed and have ${newHealth} health`)
           }
@@ -65,6 +66,7 @@ import './App.css'
             <p>Name: {playerName}</p>
             <p>Level: {playerLevel}</p>
             <p>Health: {playerHealth}</p>
+            <p>Gold: {playerGold}</p>
           </section>
     
           <section>
