@@ -7,14 +7,24 @@ import './App.css'
       const playerName = 'Ricky'
       const playerLevel = 1
       const playerMaxHealth = 20
-      const [playerGold] = useState(0)
+      const [playerGold, setPlayerGold] = useState(0)
       const [playerHealth, setPlayerHealth] = useState(playerMaxHealth)
       const playerBackpack = ['flashlight', 'rope', 'prybar']
       const [location, setLocation] = useState('Home')
       const [storyText, setStoryText] = useState(`You open your eyes on a couch, looking around you see your home. You don't remember how you got back home, but as you look at your table you see a note. It reads: "${playerName}, you need to complete the demo, then you can join us in the real game. We'll be waiting for you. - The Devs"`)
+      function randomGold() {
+        return Math.floor(Math.random() * 10) + 1
+      }
+      function searchArea() {
+        if (playerHealth >= 1) {
+          const searchResult = randomGold() 
+          setStoryText(`You search the area for something useful. You find ${searchResult} gold.`)
+          setPlayerGold(playerGold + searchResult)
+        }
+      }
       function goToCity() {
         if (playerHealth >= 1) {
-          setLocation('City')
+          setLocation(`City`)
           setStoryText('You head into the city to see what you can find. As you walk to the Boulevard you see people bustling about. There are shops, some groups calling out to passersby, and vehicles carrying their passengers. What do you want to do?')
       } else {
         setStoryText(deathText)
@@ -85,6 +95,7 @@ import './App.css'
             <button onClick={checkBackpack}>Check your backpack</button>
             <button onClick={humanityCheck}>Check if you're still human</button>
             <button onClick={roadsideRest}>Rest by the road</button>
+            <button onClick={searchArea}>Search the area</button>
           </section>
         </main>
       )
