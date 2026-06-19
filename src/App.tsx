@@ -9,6 +9,7 @@ import './App.css'
       const playerMaxHealth = 20
       const [playerGold, setPlayerGold] = useState(0)
       const [playerHealth, setPlayerHealth] = useState(playerMaxHealth)
+      const playerIsAlive = playerHealth > 0
       const playerBackpack = ['flashlight', 'rope', 'prybar']
       const [location, setLocation] = useState('Home')
       const [storyText, setStoryText] = useState(`You open your eyes on a couch, looking around you see your home. You don't remember how you got back home, but as you look at your table you see a note. It reads: "${playerName}, you need to complete the demo, then you can join us in the real game. We'll be waiting for you. - The Devs"`)
@@ -16,14 +17,16 @@ import './App.css'
         return Math.floor(Math.random() * 10) + 1
       }
       function searchArea() {
-        if (playerHealth >= 1) {
+        if (playerIsAlive) {
           const searchResult = randomGold() 
           setStoryText(`You search the area for something useful. You find ${searchResult} gold.`)
           setPlayerGold(playerGold + searchResult)
+        } else {
+          setStoryText(deathText)
         }
       }
       function goToCity() {
-        if (playerHealth >= 1) {
+        if (playerIsAlive) {
           setLocation(`City`)
           setStoryText('You head into the city to see what you can find. As you walk to the Boulevard you see people bustling about. There are shops, some groups calling out to passersby, and vehicles carrying their passengers. What do you want to do?')
       } else {
@@ -31,14 +34,14 @@ import './App.css'
       }
     }
       function checkBackpack() {
-        if (playerHealth >= 1) {
+        if (playerIsAlive) {
         setStoryText(`You check your backpack, inside you have: ${playerBackpack.join(', ')}`)
       } else {
         setStoryText(deathText)
       }
     }
       function roadsideRest() {
-        if (playerHealth >= 1) {
+        if (playerIsAlive) {
           if (playerHealth >= playerMaxHealth) {
             setStoryText('You consider resting, but realize that you aren\'t actually tired. You decide to move on instead. \(Your health is already full, don\'t be silly\).')
             return
@@ -53,7 +56,7 @@ import './App.css'
         }
       }
       function humanityCheck() {
-        if (playerHealth >= 1) {
+        if (playerIsAlive) {
           const nextHealth = Math.max(0, playerHealth - 1)
           setPlayerHealth(nextHealth)
           if (nextHealth === 0) {
@@ -91,11 +94,11 @@ import './App.css'
     
           <section>
             <h2>Choices</h2>
-            <button onClick={goToCity}>Venture into the city</button>
-            <button onClick={checkBackpack}>Check your backpack</button>
-            <button onClick={humanityCheck}>Check if you're still human</button>
-            <button onClick={roadsideRest}>Rest by the road</button>
-            <button onClick={searchArea}>Search the area</button>
+            <button onClick={goToCity} disabled={!playerIsAlive}>Venture into the city</button>
+            <button onClick={checkBackpack} disabled={!playerIsAlive}>Check your backpack</button>
+            <button onClick={humanityCheck} disabled={!playerIsAlive}>Check if you're still human</button>
+            <button onClick={roadsideRest} disabled={!playerIsAlive}>Rest by the road</button>
+            <button onClick={searchArea} disabled={!playerIsAlive}>Search the area</button>
           </section>
         </main>
       )
