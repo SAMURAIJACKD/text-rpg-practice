@@ -70,11 +70,12 @@ import './App.css'
           setStoryText(deathText)
         }
     }
-    function restartFunction() {
+    function restartGame() {
       setPlayerHealth(playerMaxHealth) 
       setPlayerGold(0)
       setLocation('Home')
-      setStoryText(homeText)}
+      setStoryText(homeText)
+    }
 
       return (
         <main>
@@ -107,8 +108,8 @@ import './App.css'
             <button onClick={searchArea} disabled={!playerIsAlive}>Search the area</button>
           </section>
           <section hidden={playerIsAlive}>
-            <h2> You are Dead, please retstart</h2>
-            <button onClick={restartFunction}>Restart </button>
+            <h2> You are Dead, please restart</h2>
+            <button onClick={restartGame}>Restart </button>
           </section>
         </main>
       )
