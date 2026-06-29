@@ -7,12 +7,13 @@ import './App.css'
       const playerName = 'Ricky'
       const playerLevel = 1
       const playerMaxHealth = 20
+      const homeText =`You open your eyes on a couch, looking around you see your home. You don't remember how you got back home, but as you look at your table you see a note. It reads: "${playerName}, you need to complete the demo, then you can join us in the real game. We'll be waiting for you. - The Devs"`
       const [playerGold, setPlayerGold] = useState(0)
       const [playerHealth, setPlayerHealth] = useState(playerMaxHealth)
       const playerIsAlive = playerHealth > 0
       const playerBackpack = ['flashlight', 'rope', 'prybar']
       const [location, setLocation] = useState('Home')
-      const [storyText, setStoryText] = useState(`You open your eyes on a couch, looking around you see your home. You don't remember how you got back home, but as you look at your table you see a note. It reads: "${playerName}, you need to complete the demo, then you can join us in the real game. We'll be waiting for you. - The Devs"`)
+      const [storyText, setStoryText] = useState(homeText)
       function randomGold() {
         return Math.floor(Math.random() * 10) + 1
       }
@@ -69,6 +70,11 @@ import './App.css'
           setStoryText(deathText)
         }
     }
+    function restartFunction() {
+      setPlayerHealth(playerMaxHealth) 
+      setPlayerGold(0)
+      setLocation('Home')
+      setStoryText(homeText)}
 
       return (
         <main>
@@ -99,6 +105,10 @@ import './App.css'
             <button onClick={humanityCheck} disabled={!playerIsAlive}>Check if you're still human</button>
             <button onClick={roadsideRest} disabled={!playerIsAlive}>Rest by the road</button>
             <button onClick={searchArea} disabled={!playerIsAlive}>Search the area</button>
+          </section>
+          <section hidden={playerIsAlive}>
+            <h2> You are Dead, please retstart</h2>
+            <button onClick={restartFunction}>Restart </button>
           </section>
         </main>
       )
