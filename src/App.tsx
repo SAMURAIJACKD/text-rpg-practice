@@ -36,21 +36,21 @@ function App() {
   }
   function checkBackpack() {
     if (playerIsAlive) {
-    setStoryText(`You check your backpack, inside you have: ${playerBackpack.join(', ')}`)
+      setStoryText(`You check your backpack, inside you have: ${playerBackpack.join(', ')}`)
     } else {
-    setStoryText(deathText)
+      setStoryText(deathText)
     }
   }
   function roadsideRest() {
     if (playerIsAlive) {
-    if (playerHealth >= playerMaxHealth) {
-    setStoryText('You consider resting, but realize that you aren\'t actually tired. You decide to move on instead. \(Your health is already full, don\'t be silly\).')
-    return
+      if (playerHealth >= playerMaxHealth) {
+        setStoryText('You consider resting, but realize that you aren\'t actually tired. You decide to move on instead. \(Your health is already full, don\'t be silly\).')
+        return
       } else {
-          const heal = Math.round(Math.random() * (playerMaxHealth - playerHealth))
-          const newHealth = Math.min(playerMaxHealth, playerHealth + heal)
-          setPlayerHealth(newHealth)
-          setStoryText(`You set up a bedroll by the side of the road and rest for a while. You feel refreshed and have ${newHealth} health`)
+        const heal = Math.round(Math.random() * (playerMaxHealth - playerHealth))
+        const newHealth = Math.min(playerMaxHealth, playerHealth + heal)
+        setPlayerHealth(newHealth)
+        setStoryText(`You set up a bedroll by the side of the road and rest for a while. You feel refreshed and have ${newHealth} health`)
       }
     } else {
         setStoryText(deathText)
@@ -62,11 +62,11 @@ function App() {
       setPlayerHealth(nextHealth)
       if (nextHealth === 0) {
         setStoryText('You were human, but now you are dead. Therefore you are now a corpse. Game over.')
-        } else {
-          setStoryText('You cut yourself and bleed, you are relieved to find that you are still human. A hurting human now, but still human.')
-        } 
+      } else {
+        setStoryText('You cut yourself and bleed, you are relieved to find that you are still human. A hurting human now, but still human.')
+      } 
     } else {
-        setStoryText(deathText)
+      setStoryText(deathText)
     }
   }
   function restartGame() {
