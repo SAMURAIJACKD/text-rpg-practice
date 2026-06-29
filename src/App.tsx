@@ -2,117 +2,108 @@ import { useState } from 'react'
 import './App.css'
 
 
-    function App() {
-      const deathText = 'You are dead, maybe wait for a mad scientist to bring you back to life before trying to continue playing?'
-      const playerName = 'Ricky'
-      const playerLevel = 1
-      const playerMaxHealth = 20
-      const homeText =`You open your eyes on a couch, looking around you see your home. You don't remember how you got back home, but as you look at your table you see a note. It reads: "${playerName}, you need to complete the demo, then you can join us in the real game. We'll be waiting for you. - The Devs"`
-      const [playerGold, setPlayerGold] = useState(0)
-      const [playerHealth, setPlayerHealth] = useState(playerMaxHealth)
-      const playerIsAlive = playerHealth > 0
-      const playerBackpack = ['flashlight', 'rope', 'prybar']
-      const [location, setLocation] = useState('Home')
-      const [storyText, setStoryText] = useState(homeText)
-      function randomGold() {
-        return Math.floor(Math.random() * 10) + 1
-      }
-      function searchArea() {
-        if (playerIsAlive) {
-          const searchResult = randomGold() 
-          setStoryText(`You search the area for something useful. You find ${searchResult} gold.`)
-          setPlayerGold(playerGold + searchResult)
-        } else {
-          setStoryText(deathText)
-        }
-      }
-      function goToCity() {
-        if (playerIsAlive) {
-          setLocation(`City`)
-          setStoryText('You head into the city to see what you can find. As you walk to the Boulevard you see people bustling about. There are shops, some groups calling out to passersby, and vehicles carrying their passengers. What do you want to do?')
+function App() {
+  const deathText = 'You are dead, maybe wait for a mad scientist to bring you back to life before trying to continue playing?'
+  const playerName = 'Ricky'
+  const playerLevel = 1
+  const playerMaxHealth = 20
+  const homeText =`You open your eyes on a couch, looking around you see your home. You don't remember how you got back home, but as you look at your table you see a note. It reads: "${playerName}, you need to complete the demo, then you can join us in the real game. We'll be waiting for you. - The Devs"`
+  const [playerGold, setPlayerGold] = useState(0)
+  const [playerHealth, setPlayerHealth] = useState(playerMaxHealth)
+  const playerIsAlive = playerHealth > 0
+  const playerBackpack = ['flashlight', 'rope', 'prybar']
+  const [location, setLocation] = useState('Home')
+  const [storyText, setStoryText] = useState(homeText)
+  function randomGold() {
+    return Math.floor(Math.random() * 10) + 1
+  }
+  function searchArea() {
+    if (playerIsAlive) {
+      const searchResult = randomGold() 
+      setStoryText(`You search the area for something useful. You find ${searchResult} gold.`)
+      setPlayerGold(playerGold + searchResult)
+    } else {
+      setStoryText(deathText)
+    }
+  }
+  function goToCity() {
+    if (playerIsAlive) {
+      setLocation(`City`)
+      setStoryText('You head into the city to see what you can find. As you walk to the Boulevard you see people bustling about. There are shops, some groups calling out to passersby, and vehicles carrying their passengers. What do you want to do?')
+    } else {
+      setStoryText(deathText)
+    }
+  }
+  function checkBackpack() {
+    if (playerIsAlive) {
+    setStoryText(`You check your backpack, inside you have: ${playerBackpack.join(', ')}`)
+    } else {
+    setStoryText(deathText)
+    }
+  }
+  function roadsideRest() {
+    if (playerIsAlive) {
+    if (playerHealth >= playerMaxHealth) {
+    setStoryText('You consider resting, but realize that you aren\'t actually tired. You decide to move on instead. \(Your health is already full, don\'t be silly\).')
+    return
       } else {
-        setStoryText(deathText)
+          const heal = Math.round(Math.random() * (playerMaxHealth - playerHealth))
+          const newHealth = Math.min(playerMaxHealth, playerHealth + heal)
+          setPlayerHealth(newHealth)
+          setStoryText(`You set up a bedroll by the side of the road and rest for a while. You feel refreshed and have ${newHealth} health`)
       }
-    }
-      function checkBackpack() {
-        if (playerIsAlive) {
-        setStoryText(`You check your backpack, inside you have: ${playerBackpack.join(', ')}`)
-      } else {
+    } else {
         setStoryText(deathText)
-      }
     }
-      function roadsideRest() {
-        if (playerIsAlive) {
-          if (playerHealth >= playerMaxHealth) {
-            setStoryText('You consider resting, but realize that you aren\'t actually tired. You decide to move on instead. \(Your health is already full, don\'t be silly\).')
-            return
-          } else {
-            const heal = Math.round(Math.random() * (playerMaxHealth - playerHealth))
-            const newHealth = Math.min(playerMaxHealth, playerHealth + heal)
-            setPlayerHealth(newHealth)
-            setStoryText(`You set up a bedroll by the side of the road and rest for a while. You feel refreshed and have ${newHealth} health`)
-          }
+  }
+  function humanityCheck() {
+    if (playerIsAlive) {
+      const nextHealth = Math.max(0, playerHealth - 1)
+      setPlayerHealth(nextHealth)
+      if (nextHealth === 0) {
+        setStoryText('You were human, but now you are dead. Therefore you are now a corpse. Game over.')
         } else {
-          setStoryText(deathText)
-        }
-      }
-      function humanityCheck() {
-        if (playerIsAlive) {
-          const nextHealth = Math.max(0, playerHealth - 1)
-          setPlayerHealth(nextHealth)
-          if (nextHealth === 0) {
-            setStoryText('You were human, but now you are dead. Therefore you are now a corpse. Game over.')
-          } else {
-            setStoryText('You cut yourself and bleed, you are relieved to find that you are still human. A hurting human now, but still human.')
-          } 
-        }
-        else {
-          setStoryText(deathText)
-        }
+          setStoryText('You cut yourself and bleed, you are relieved to find that you are still human. A hurting human now, but still human.')
+        } 
+    } else {
+        setStoryText(deathText)
     }
-    function restartGame() {
-      setPlayerHealth(playerMaxHealth) 
-      setPlayerGold(0)
-      setLocation('Home')
-      setStoryText(homeText)
-    }
+  }
+  function restartGame() {
+    setPlayerHealth(playerMaxHealth) 
+    setPlayerGold(0)
+    setLocation('Home')
+    setStoryText(homeText)
+  }
 
-      return (
-        <main>
-          <h1>Text RPG Practice</h1>
+  return (
+    <main>
+      <h1>Text RPG Practice</h1>
+        <section>
+          <h2>Player</h2>
+          <p>Name: {playerName}</p>
+          <p>Level: {playerLevel}</p>
+          <p>Health: {playerHealth}</p>
+          <p>Gold: {playerGold}</p>
+        </section>
+        <section>
+          <h2>Location</h2>
+          <p>{location}</p>
+          <p>{storyText}</p>
+        </section>
     
-          <section>
-            <h2>Player</h2>
-            <p>Name: {playerName}</p>
-            <p>Level: {playerLevel}</p>
-            <p>Health: {playerHealth}</p>
-            <p>Gold: {playerGold}</p>
-          </section>
-    
-          <section>
-            <h2>Location</h2>
-            <p>{location}</p>
-
-            <p>
-              {storyText}
-            </p>
-          
-          </section>
-    
-          <section>
-            <h2>Choices</h2>
-            <button onClick={goToCity} disabled={!playerIsAlive}>Venture into the city</button>
-            <button onClick={checkBackpack} disabled={!playerIsAlive}>Check your backpack</button>
-            <button onClick={humanityCheck} disabled={!playerIsAlive}>Check if you're still human</button>
-            <button onClick={roadsideRest} disabled={!playerIsAlive}>Rest by the road</button>
-            <button onClick={searchArea} disabled={!playerIsAlive}>Search the area</button>
-          </section>
-          <section hidden={playerIsAlive}>
-            <h2> You are Dead, please restart</h2>
-            <button onClick={restartGame}>Restart </button>
-          </section>
-        </main>
-      )
-    }
-    
+        <section>
+          <h2>Choices</h2>
+          <button onClick={goToCity} disabled={!playerIsAlive}>Venture into the city</button>
+          <button onClick={checkBackpack} disabled={!playerIsAlive}>Check your backpack</button>
+          <button onClick={humanityCheck} disabled={!playerIsAlive}>Check if you're still human</button>
+          <button onClick={roadsideRest} disabled={!playerIsAlive}>Rest by the road</button>
+          <button onClick={searchArea} disabled={!playerIsAlive}>Search the area</button>
+        </section>
+        <section hidden={playerIsAlive}>
+          <h2> You are Dead, please restart</h2>
+          <button onClick={restartGame}>Restart </button>
+        </section>
+      </main>
+  )} 
     export default App
